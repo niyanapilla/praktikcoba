@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+ 
+<body>
+    <h1>Form Registrasi Ekstrakurikuler</h1>
+    <form 
+        action="http://rplcoders.com/proses.php" 
+        method="post" 
+        enctype="multipart/form-data">
+        <input type="hidden" name="id" id="id" value="101">
+        <fieldset>
+            <legend>Data Pribadi</legend>
+            <label for="nama">Nama Lengkap</label><br>
+            <input required type="text" name="nama" id="name" placeholder="ketikkan nama lengkap"><br>
+            <label for="tglahir">Tanggal Lahir</label><br>
+            <input type="date" name="tglahir" id="tglahir"><br>
+            <label for="alamat">Alamat Lengkap</label><br>
+            <textarea name="alamat" id="alamat" cols="30" rows="5"></textarea><br>
+            Jenis Kelamin
+            <label style="cursor: pointer;" for="jk1">
+                <input checked type="radio" name="jk" id="jk1" value="1">Laki-Laki
+            </label>
+            <label style="cursor: pointer;" for="jk2">
+                <input type="radio" name="jk" id="jk2" value="2">Perempuan
+            </label>
+            <br>
+            <label for="nomor_wa">Nomor WA</label><br>
+            <input type="tel" name="nomor_wa" id="nomor_wa"><br>
+            <label for="nomor_rumah">Nomor Rumah</label><br>
+            <input type="number" name="nomor_rumah" id="nomor_rumah"><br>
+            <label for="kelas">Kelas</label><br>
+            <select name="kelas" id="kelas">
+                <option value="xrpl1">X RPL 1</option>
+                <option value="xrpl2">X RPL 2</option>
+                <option value="xtkj1">X TKJ 1</option>
+                <option value="xtkkr1">X TKKR 1</option>
+            </select><br>
+            <label for="foto">Foto</label><br>
+            <input 
+                type="file" 
+                name="foto" 
+                id="foto"
+                accept="image/*"
+                capture="environment"
+            >
+        </fieldset>
+        <fieldset>
+            <legend>Ekstrakurikuler</legend>
+            Pilihan Ekstrakurikuler (bisa lebih dari 1):</label><br>
+            <label for="ekskul1">
+                <input type="checkbox" name="ekskul[]" id="ekskul1" value="pramuka">Pramuka 
+            </label><br>
+            <label for="ekskul2">
+                <input type="checkbox" name="ekskul[]" id="ekskul2" value="pmr">PMR 
+            </label><br>             
+            <label for="ekskul3">
+                <input type="checkbox" name="ekskul[]" id="ekskul3" value="kir">KIR
+            </label><br>
+            <input type="checkbox" name="ekskul[]" id="ekskul4" value="drum band">Drum Band <br><br>
+            <label for="select_ekskul">Pilihan Ekskul</label><br>
+            <select multiple name="select_ekskul" id="select_ekskul">
+                <option value="1">Pramuka</option>
+                <option value="2">PMR</option>
+                <option value="3">KIR</option>
+                <option value="4">Drum Band</option>
+            </select><br><br>
+            <label for="motivasi">Motivasi Anda Memilih </label><br>
+            <textarea name="motivasi" id="motivasi"></textarea>
+        </fieldset>
+        <label for="token">Token</label>
+        <input type="password" name="token" id="token">
+        <br><br>
+        <button type="submit">Kirim</button>
+        <button onclick="return confirm('Apakah Anda yakin untuk mereset?')" type="reset">Reset</button>
+    </form>
+</body>
+</html>

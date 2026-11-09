@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Form Data Siswa</title>
+</head>
+
+<body>
+    <h2>Form Pengisian Data Mata Pelajaran Pilihan</h2>
+    <form action="http://rplcoders.com/proses.php" method="POST">
+
+        <label for="nama">Nama Lengkap:</label><br>
+        <input type="text" id="nama" name="nama" placeholder="Masukkan nama kamu" required><br><br>
+
+        <label for="tglahir">Tanggal Lahir</label><br>
+        <input type="date" id="tglahir" nama="tglahir"><br><br>
+        <label>Pilih Kelas :</label>
+        <select id="kelas" name="kelas" required>
+            <option value="kelas1">RPL</option>
+            <option value="kelas2">TKJ</option>
+            <option value="kelas3">PSPT</option>
+            <option value="kelas4">TKKR</option>
+            <option value="kelas5">KKBT</option>
+            <option value="kelas6">ULW</option>
+            <option value="kelas7">ANM</option>
+        </select><br><br>
+
+        <label>Mata Pelajaran Pilihan TKA:</label><br>
+        <input type="checkbox" id="mapil" name="mapil1" value="MIPA">
+        <label for="MIPA">MIPA</label><br>
+        <input type="checkbox" id="mapil" name="mapil2" value="SosHum">
+        <label for="SosHum">SosHum</label><br>
+        <input type="checkbox" id="mapil" name="mapil3" value="Sastra">
+        <label for="Sastra">Sastra</label><br>
+        <input type="checkbox" id="mapil" name="mapil4" value="BhsAsing">
+        <label for="BhsAsing">Bahasa Asing</label><br><br>
+
+        <label>Jenis Kelamin:</label><br>
+        <input type="radio" id="laki" name="jenis_kelamin" value="Laki-laki" required>
+        <label for="laki">Laki-laki</label><br>
+        <input type="radio" id="perempuan" name="jenis_kelamin" value="Perempuan" required>
+        <label for="perempuan">Perempuan</label><br><br>
+
+        <label for="alamat">Alamat Lengkap:</label><br>
+        <textarea id="alamat" name="alamat" rows="4" cols="40" placeholder="Tulis alamat lengkapmu" required></textarea><br><br>
+        <input type="submit" value="Kirim">
+        <input type="reset" value="Bersih" onclick="return confirm('apakah yakin ingin menghapus?')">
+    </form>
+
+</body>
+</html>

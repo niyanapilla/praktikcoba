@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Info Sekolah Hari Ini</title>
+</head>
+<body>
+    <script>
+        var kegiatan = prompt(
+            "PILIH KEGIATAN HARI INI:\n1. Sekolah\n2. TKA"
+        );
+        console.log("=== INFO SEKOLAH HARI INI ===");
+        document.write("<h2>INFO SEKOLAH HARI INI</h2>");
+
+        if (kegiatan == "1") {
+            console.log("Status: Masuk sekolah");
+            console.log("Pesan: Semangat belajar!");
+            document.write("Status: Masuk sekolah<br>");
+            document.write("Pesan: Semangat belajar!");
+        } else if (kegiatan == "2") {
+            console.log("Status: Pembelajaran dilakukan secara Daring");
+            console.log("Kegiatan: TKA");
+            console.log("Pesan: Semoga kegiatan TKA lancar!");
+            document.write("Status: Pembelajaran dilakukan secara Daring <br>");
+            document.write("Kegiatan: TKA<br>");
+            document.write("Pesan: Semoga kegiatan TKA lancar!");
+        } else {
+            console.log("Pilihan tidak valid!");
+            document.write("Pilihan tidak valid!");
+        }
+    </script>
+</body>
+</html>

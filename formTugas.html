@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Form Pendaftaran Anggota Baru PMR</title>
+</head>
+
+<body>
+
+    <h1>Form Pendaftaran Anggota Baru Ekstrakurikuler PMR</h1>
+
+    <form action="https://rplcoders.com/proses.php" method="POST">
+
+        <fieldset>
+            <legend>Data Diri</legend>
+
+            <label for="nama">Nama Lengkap:</label><br>
+            <input type="text" id="nama" name="nama" required><br><br>
+
+            <label for="nisn">NISN:</label><br>
+            <input type="text" id="nisn" name="nisn" pattern="[0-9]{5}" title="NISN harus berupa 5 digit angka"
+                required><br><br>
+
+            <label for="tanggal_lahir">Tanggal Lahir:</label><br>
+            <input type="date" id="tanggal_lahir" name="tanggal_lahir" required><br><br>
+
+            <label for="kelas">Pilih Kelas:</label><br>
+            <select id="kelas" name="kelas" required>
+                <option value="">-- Pilih Kelas --</option>
+                <option value="RPL">RPL</option>
+                <option value="TKJ">TKJ</option>
+                <option value="DKV">DKV</option>
+                <option value="KKBT">KKBT</option>
+                <option value="TKKR">TKKR</option>
+                <option value="PSPT">PSPT</option>
+            </select><br><br>
+
+            <label>Jenis Kelamin:</label><br>
+            <input type="radio" id="laki" name="jenis_kelamin" value="Laki-laki" required>
+            <label for="laki">Laki-laki</label>
+
+            <input type="radio" id="perempuan" name="jenis_kelamin" value="Perempuan">
+            <label for="perempuan">Perempuan</label><br><br>
+
+            <label for="no_hp">Nomor HP:</label><br>
+            <input type="text" id="no_hp" name="no_hp" pattern="08[0-9]{9,10}"
+                title="Nomor HP harus diawali 08 dan terdiri dari 11-12 digit" required><br><br>
+
+            <label for="foto">Upload Foto:</label><br>
+            <input type="file" id="foto" name="foto" accept="image/*" required><br><br>
+        </fieldset>
+
+        <br>
+
+        <fieldset>
+            <legend>Data Keanggotaan PMR</legend>
+            <label for="divisi">Divisi yang Dipilih:</label><br>
+            <select id="divisi" name="divisi">
+                <option value="">-- Pilih Divisi --</option>
+                <option value="DIKLAT">DIKLAT</option>
+                <option value="HUMAS">HUMAS</option>
+                <option value="PERSAHABATAN">PERSAHABATAN</option>
+                <option value="KREATIF">KREATIF</option>
+            </select><br><br>
+            <label>Minat Kegiatan:</label><br>
+            <input type="checkbox" id="pertolongan" name="minat[]" value="Pertolongan Pertama">
+            <label for="pertolongan">Pertolongan Pertama</label><br>
+
+            <input type="checkbox" id="bencana" name="minat[]" value="Kebencanaan">
+            <label for="bencana">Kebencanaan</label><br>
+
+            <input type="checkbox" id="kesehatan" name="minat[]" value="Kesehatan">
+            <label for="kesehatan">Kesehatan</label><br><br>
+
+            <label for="alasan">Alasan Mengikuti PMR:</label><br>
+            <textarea id="alasan" name="alasan" rows="5" cols="40" placeholder="Tuliskan alasan mengikuti PMR..."
+                required></textarea><br><br>
+        </fieldset>
+
+        <br>
+        <button type="submit" id="daftar" name="daftar">Daftar</button>
+        <button type="reset" id="reset" name="reset">Reset</button>
+    </form>
+</body>
+</html>
