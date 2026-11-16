@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyTrack | Study Planner</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f6fa;
+            color: #202938;
+            padding: 30px 16px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        header {
+            margin-bottom: 28px;
+        }
+
+        header h1 {
+            font-size: 28px;
+            color: #2447a8;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            color: #687386;
+            line-height: 1.5;
+        }
+
+        .date {
+            margin-top: 12px;
+            font-size: 14px;
+            color: #687386;
+        }
+
+        .statistics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-bottom: 22px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e5e9f0;
+        }
+
+        .stat-card p {
+            font-size: 13px;
+            color: #687386;
+            margin-bottom: 10px;
+        }
+
+        .stat-card h2 {
+            font-size: 25px;
+            color: #2447a8;
+        }
+
+        .panel {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            border: 1px solid #e5e9f0;
+            margin-bottom: 20px;
+        }
+
+        .panel h2 {
+            font-size: 19px;
+            margin-bottom: 18px;
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #dce2eb;
+            border-radius: 7px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        input:focus, select:focus {
+            border-color: #4267c8;
+        }
+
+        button {
+            border: none;
+            border-radius: 7px;
+            padding: 11px 16px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .add-button {
+            background: #3158b7;
+            color: white;
+            width: 100%;
+        }
+
+        .add-button:hover {
+            background: #24448f;
+        }
+
+        .task-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 0;
+            border-bottom: 1px solid #edf0f5;
+        }
+
+        .task-item:last-child {
+            border-bottom: none;
+        }
+
+        .task-info {
+            min-width: 0;
+        }
+
+        .task-info h3 {
+            font-size: 15px;
+            margin-bottom: 6px;
+            overflow-wrap: anywhere;
+        }
+
+        .task-info p {
+            font-size: 12px;
+            color: #788397;
+        }
+
+        .completed h3 {
+            text-decoration: line-through;
+            color: #9aa3b2;
+        }
+
+        .task-actions {
+            display: flex;
+            gap: 7px;
+            flex-shrink: 0;
+        }
+
+        .done-button {
+            background: #e5f5ec;
+            color: #23834c;
+        }
+
+        .delete-button {
+            background: #fdeaea;
+            color: #c33d3d;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 25px 10px;
+            color: #8993a3;
+            font-size: 14px;
+        }
+
+        .progress-container {
+            background: #e9edf5;
+            height: 9px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-top: 12px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: #3158b7;
+            transition: width 0.3s;
+        }
+
+        .progress-text {
+            font-size: 13px;
+            color: #687386;
+            margin-top: 8px;
+        }
+
+        footer {
+            text-align: center;
+            color: #8993a3;
+            font-size: 12px;
+            padding: 12px;
+        }
+
+        @media (max-width: 550px) {
+            .statistics {
+                grid-template-columns: 1fr;
+            }
+
+            .task-item {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .task-actions {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header>
+            <h1>StudyTrack</h1>
+            <p>Atur kegiatan belajar, pantau progres, dan capai target harianmu.</p>
+            <div class="date" id="current-date"></div>
+        </header>
+
+        <section class="statistics">
+            <div class="stat-card">
+                <p>Total Kegiatan</p>
+                <h2 id="total-tasks">0</h2>
+            </div>
+
+            <div class="stat-card">
+                <p>Selesai</p>
+                <h2 id="completed-tasks">0</h2>
+            </div>
+
+            <div class="stat-card">
+                <p>Total Durasi</p>
+                <h2 id="total-duration">0 menit</h2>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>Tambah Kegiatan Belajar</h2>
+
+            <form id="study-form">
+
+                <div class="form-group">
+                    <label for="study-name">Nama Kegiatan</label>
+                    <input
+                        type="text"
+                        id="study-name"
+                        placeholder="Contoh: Mengerjakan tugas matematika"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="study-subject">Mata Pelajaran</label>
+                    <select id="study-subject" required>
+                        <option value="">Pilih mata pelajaran</option>
+                        <option>Matematika</option>
+                        <option>Bahasa Indonesia</option>
+                        <option>Bahasa Inggris</option>
+                        <option>Sejarah</option>
+                        <option>Pemrograman</option>
+                        <option>Basis Data</option>
+                        <option>Lainnya</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="study-duration">Durasi (menit)</label>
+                    <input
+                        type="number"
+                        id="study-duration"
+                        min="1"
+                        max="1440"
+                        placeholder="Contoh: 60"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="add-button">
+                    + Tambahkan Kegiatan
+                </button>
+
+            </form>
+        </section>
+
+        <section class="panel">
+            <h2>Progres Belajar</h2>
+
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+
+            <p class="progress-text" id="progress-text">
+                0% kegiatan telah diselesaikan.
+            </p>
+        </section>
+
+        <section class="panel">
+            <h2>Daftar Kegiatan</h2>
+            <div id="task-list">
+                <div class="empty">Belum ada kegiatan belajar.</div>
+            </div>
+        </section>
+
+        <footer>
+            StudyTrack &copy; <span id="year"></span> | Student Study Planner
+        </footer>
+
+    </div>
+
+    <script>
+   
+        console.log("StudyTrack berhasil dijalankan.");
+        console.log("Sistem siap digunakan.");
+
+        const studyForm = document.getElementById("study-form");
+        const studyName = document.getElementById("study-name");
+        const studySubject = document.getElementById("study-subject");
+        const studyDuration = document.getElementById("study-duration");
+
+        const taskList = document.getElementById("task-list");
+        const totalTasks = document.getElementById("total-tasks");
+        const completedTasks = document.getElementById("completed-tasks");
+        const totalDuration = document.getElementById("total-duration");
+
+        const progressBar = document.getElementById("progress-bar");
+        const progressText = document.getElementById("progress-text");
+
+        let tasks = [];
+
+        const today = new Date();
+
+        document.getElementById("current-date").textContent =
+            today.toLocaleDateString("id-ID", {
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+            });
+
+        document.getElementById("year").textContent =
+            today.getFullYear();
+
+        console.log("Tanggal sistem:", today.toLocaleDateString("id-ID"));
+
+        function loadTasks() {
+            try {
+                const savedTasks = localStorage.getItem("studytrack-data");
+
+                if (savedTasks) {
+                    const parsedTasks = JSON.parse(savedTasks);
+
+                    if (Array.isArray(parsedTasks)) {
+                        tasks = parsedTasks;
+                    }
+                }
+
+                console.log("Data kegiatan berhasil dimuat.");
+            } catch (error) {
+                console.error("Gagal memuat data:", error);
+                tasks = [];
+            }
+        }
+
+        function saveTasks() {
+            try {
+                localStorage.setItem(
+                    "studytrack-data",
+                    JSON.stringify(tasks)
+                );
+
+                console.log("Data berhasil disimpan.");
+            } catch (error) {
+                console.error("Gagal menyimpan data:", error);
+            }
+        }
+
+        studyForm.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const name = studyName.value.trim();
+            const subject = studySubject.value;
+            const duration = Number(studyDuration.value);
+
+            if (!name || !subject || !Number.isInteger(duration) ||
+                duration < 1 || duration > 1440) {
+                alert("Periksa kembali data kegiatanmu.");
+                console.warn("Data kegiatan tidak valid.");
+                return;
+            }
+
+            const newTask = {
+                id: Date.now(),
+                name: name,
+                subject: subject,
+                duration: duration,
+                completed: false
+            };
+
+            tasks.push(newTask);
+
+            saveTasks();
+            renderTasks();
+
+            studyForm.reset();
+
+            console.log("Kegiatan baru ditambahkan:", newTask);
+        });
+
+        function renderTasks() {
+            taskList.innerHTML = "";
+
+            if (tasks.length === 0) {
+                taskList.innerHTML =
+                    '<div class="empty">Belum ada kegiatan belajar.</div>';
+            }
+
+            tasks.forEach(function(task) {
+                const item = document.createElement("div");
+                item.className = "task-item";
+
+                const info = document.createElement("div");
+                info.className = "task-info";
+
+                if (task.completed) {
+                    info.classList.add("completed");
+                }
+
+                const title = document.createElement("h3");
+                title.textContent = task.name;
+
+                const detail = document.createElement("p");
+                detail.textContent =
+                    task.subject + " • " + task.duration + " menit";
+
+                info.appendChild(title);
+                info.appendChild(detail);
+
+                const actions = document.createElement("div");
+                actions.className = "task-actions";
+
+                const doneButton = document.createElement("button");
+                doneButton.className = "done-button";
+                doneButton.textContent =
+                    task.completed ? "Batalkan" : "Selesai";
+
+                doneButton.addEventListener("click", function() {
+                    toggleTask(task.id);
+                });
+
+                const deleteButton = document.createElement("button");
+                deleteButton.className = "delete-button";
+                deleteButton.textContent = "Hapus";
+
+                deleteButton.addEventListener("click", function() {
+                    deleteTask(task.id);
+                });
+
+                actions.appendChild(doneButton);
+                actions.appendChild(deleteButton);
+
+                item.appendChild(info);
+                item.appendChild(actions);
+
+                taskList.appendChild(item);
+            });
+
+            updateStatistics();
+        }
+
+        function toggleTask(id) {
+            const task = tasks.find(function(item) {
+                return item.id === id;
+            });
+
+            if (!task) return;
+
+            task.completed = !task.completed;
+
+            saveTasks();
+            renderTasks();
+
+            console.log(
+                "Status kegiatan diperbarui:",
+                task.name,
+                task.completed ? "Selesai" : "Belum selesai"
+            );
+        }
+
+        function deleteTask(id) {
+            const task = tasks.find(function(item) {
+                return item.id === id;
+            });
+
+            if (!task) return;
+
+            const confirmation = confirm(
+                "Apakah kamu yakin ingin menghapus kegiatan ini?"
+            );
+
+            if (!confirmation) return;
+
+            tasks = tasks.filter(function(item) {
+                return item.id !== id;
+            });
+
+            saveTasks();
+            renderTasks();
+
+            console.log("Kegiatan dihapus:", task.name);
+        }
+
+        function updateStatistics() {
+            const total = tasks.length;
+
+            const completed = tasks.filter(function(task) {
+                return task.completed;
+            }).length;
+
+            const duration = tasks.reduce(function(total, task) {
+                return total + task.duration;
+            }, 0);
+
+            const percentage = total === 0
+                ? 0
+                : Math.round((completed / total) * 100);
+
+            totalTasks.textContent = total;
+            completedTasks.textContent = completed;
+            totalDuration.textContent = duration + " menit";
+
+            progressBar.style.width = percentage + "%";
+
+            progressText.textContent =
+                percentage + "% kegiatan telah diselesaikan.";
+
+            console.log("Statistik diperbarui:", {
+                total: total,
+                selesai: completed,
+                durasi: duration,
+                progres: percentage + "%"
+            });
+        }
+
+        loadTasks();
+        renderTasks();
+
+        console.log("StudyTrack siap digunakan!");
+    </script>
+
+</body>
+</html>
