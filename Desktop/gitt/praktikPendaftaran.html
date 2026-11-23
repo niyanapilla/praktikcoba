@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Registrasi Ekstrakurikuler</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            width: 600px;
+            margin: auto;
+        }
+
+        fieldset {
+            margin-bottom: 20px;
+            padding: 15px;
+        }
+
+        legend {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="file"],
+        input[type="password"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 80px;
+        }
+
+        .btn-kirim {
+            background-color: rgb(12, 218, 12);
+            color: white;
+            padding: 8px 20px;
+            border: 1px solid rgb(0, 0, 0);
+        }
+
+        .btn-reset {
+            background-color: rgb(10, 10, 10);
+            color: white;
+            padding: 8px 20px;
+            border: 1px solid rgb(190, 15, 15);
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Form Registrasi Ekstrakurikuler</h1>
+
+    <form action="http://rplcoders.com/proses.php" method="post">
+
+        <fieldset>
+            <legend>Data Pribadi</legend>
+
+            <label for="nama">Nama Lengkap</label><br>
+            <input required type="text" name="nama" id="nama"
+                placeholder="Ketikkan nama lengkap"><br>
+
+            <label for="tglahir">Tanggal Lahir</label><br>
+            <input type="date" name="tglahir" id="tglahir"><br>
+
+            <label for="alamat">Alamat Lengkap</label><br>
+            <textarea name="alamat" id="alamat"></textarea><br>
+
+            <label>Jenis Kelamin</label><br>
+            <input checked type="radio" name="jk" id="jk1" value="1">
+            <label for="jk1">Laki-Laki</label>
+
+            <input type="radio" name="jk" id="jk2" value="2">
+            <label for="jk2">Perempuan</label>
+            <br><br>
+
+            <label for="kelas">Kelas</label><br>
+            <select name="kelas" id="kelas">
+                <option value="xrpl1">X RPL 1</option>
+                <option value="xrpl2">X RPL 2</option>
+                <option value="xtkj1">X TKJ 1</option>
+                <option value="xtkj2">X TKJ 2</option>
+                <option value="xdpib1">X DPIB 1</option>
+                <option value="xdpib2">X DPIB 2</option>
+                <option value="xdkv1"> X DKV 1</option>
+                <option value="xdkv2"> X DKV 2</option>
+            </select><br>
+
+            <label for="foto">Pas Foto</label><br>
+            <input type="file" name="foto" id="foto">
+        </fieldset>
+
+        <fieldset>
+            <legend>Ekstrakurikuler</legend>
+
+            <label>Pilihan Ekstrakurikuler:</label><br>
+
+            <input type="checkbox" name="ekskul[]" value="badminton">
+            Badminton<br>
+
+            <input type="checkbox" name="ekskul[]" value="sepak bola">
+            Sepak Bola<br>
+
+            <input type="checkbox" name="ekskul[]" value="futsal">
+            Futsal<br>
+
+            <input type="checkbox" name="ekskul[]" value="drum band">
+            Drum Band<br><br>
+
+            <label for="motivasi">Motivasi Mengikuti Ekskul</label><br>
+            <textarea name="motivasi" id="motivasi"></textarea>
+        </fieldset>
+
+        <label for="token">Token</label><br>
+        <input type="password" name="token" id="token">
+
+        <br><br>
+
+        <button type="submit" class="btn-kirim">
+            Kirim
+        </button>
+
+        <button type="reset" class="btn-reset"
+            onclick="return confirm('Apakah Anda yakin ingin mereset form?')">
+            Reset
+        </button>
+
+    </form>
+
+</body>
+
+</html>
